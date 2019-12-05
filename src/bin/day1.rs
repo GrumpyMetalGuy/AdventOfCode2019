@@ -35,6 +35,10 @@ fn main() {
 
     println!(
         "{}",
-        inputs.iter().map(calculate_fuel_advanced).into_iter().sum::<i32>()
+        inputs
+            .iter()
+            .map(calculate_fuel_advanced)
+            .into_iter()
+            .sum::<i32>()
     );
 }

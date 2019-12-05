@@ -1,24 +1,4 @@
-fn run_program(memory: &mut Vec<usize>) -> usize {
-    let mut index = 0;
-
-    loop {
-        let operator = memory[index];
-        let register1 = memory[index + 1];
-        let register2 = memory[index + 2];
-        let register3 = memory[index + 3];
-
-        match operator {
-            1 => memory[register3] = memory[register1] + memory[register2],
-            2 => memory[register3] = memory[register1] * memory[register2],
-            99 => break,
-            _ => panic!("Unable to execute program")
-        }
-
-        index += 4;
-    }
-
-    memory[0]
-}
+use AdventOfCode2019::intcode::IntCode;
 
 fn main() {
     let program_input = vec![
@@ -36,7 +16,10 @@ fn main() {
     current_program[1] = 12;
     current_program[2] = 2;
 
-    println!("{}", run_program(&mut current_program));
+    let mut intcode = IntCode::new(&current_program);
+    intcode.run();
+
+    println!("{}", intcode.memory()[0]);
 
     for noun in 0..=99 {
         for verb in 0..=99 {
@@ -44,7 +27,10 @@ fn main() {
             current_program[1] = noun;
             current_program[2] = verb;
 
-            if run_program(&mut current_program) == 19690720 {
+            intcode.reset(&current_program);
+            intcode.run();
+
+            if intcode.memory()[0] == 19690720 {
                 println!("{}", 100 * noun + verb);
             }
         }
