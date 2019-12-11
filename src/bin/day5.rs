@@ -1,4 +1,4 @@
-use AdventOfCode2019::intcode::IntCode;
+use AdventOfCode2019::intcode::IntCodeInterpreter;
 
 fn main() {
     let program_input = vec![
@@ -40,6 +40,7 @@ fn main() {
         677, 224, 102, 2, 223, 223, 1006, 224, 674, 1001, 223, 1, 223, 4, 223, 99, 226,
     ];
 
-    let mut intcode = IntCode::new(&program_input);
-    intcode.run();
+    let mut interpreter = IntCodeInterpreter::new();
+    interpreter.reset(&program_input);
+    interpreter.run();
 }

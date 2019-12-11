@@ -1,4 +1,4 @@
-use AdventOfCode2019::intcode::IntCode;
+use AdventOfCode2019::intcode::IntCodeInterpreter;
 
 fn main() {
     let program_input = vec![
@@ -16,10 +16,11 @@ fn main() {
     current_program[1] = 12;
     current_program[2] = 2;
 
-    let mut intcode = IntCode::new(&current_program);
-    intcode.run();
+    let mut interpreter = IntCodeInterpreter::new();
+    interpreter.reset(&current_program);
+    interpreter.run();
 
-    println!("{}", intcode.memory()[0]);
+    println!("{}", interpreter.memory()[0]);
 
     for noun in 0..=99 {
         for verb in 0..=99 {
@@ -27,11 +28,11 @@ fn main() {
             current_program[1] = noun;
             current_program[2] = verb;
 
-            intcode.reset(&current_program);
-            intcode.run();
+            interpreter.reset(&current_program);
+            interpreter.run();
 
-            if intcode.memory()[0] == 19690720 {
-                println!("{}", 100 * noun + verb);
+            if interpreter.memory()[0] == 19690720 {
+                println!("{:?}", 100 * noun + verb);
             }
         }
     }
