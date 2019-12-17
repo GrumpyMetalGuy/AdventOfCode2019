@@ -230,6 +230,10 @@ impl IntCodeInterpreter {
         &self.output
     }
 
+    pub fn clear_output(&mut self) {
+        self.output.clear();
+    }
+
     pub fn halted(&self) -> bool {
         !self.running
     }
